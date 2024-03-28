@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hallo FSW 1</h1>
+    <% if (message != "") { %>
+
+    <table>
+      <th>id</th>
+      <th>name</th>
+      <th>age</th>
+      <th>city</th>
+      <th>email</th>
+      <th>createdAt</th>
+      <th>action</th>
+      <% customers.map((customer) => { %>
+      <tr>
+        <td><%= customer.id %></td>
+        <td><%= customer.name %></td>
+        <td><%= customer.age %></td>
+        <td><%= customer.city %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.createdAt %></td>
+        <td><a href="">Edit</a></td>
+        <form action="">
+          <button>Delete</button>
+        </form>
+      </tr>
+      <% }) %>
+    </table>
+    <a href="/customers/create">
+      <button>Tambah Data</button>
+    </a>
+  </body>
+</html>
