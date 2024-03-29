@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Document</title>
   </head>
   <body>
     <h1>Hallo FSW 1</h1>
     <% if (message != "") { %>
+    <div class="alert">Data berhasil <%= message %></div>
+    <% } %>
 
     <table>
       <th>id</th>
@@ -25,15 +28,22 @@
         <td><%= customer.city %></td>
         <td><%= customer.email %></td>
         <td><%= customer.createdAt %></td>
-        <td><a href="">Edit</a></td>
-        <form action="">
-          <button>Delete</button>
-        </form>
+        <td>
+          <a href="/customers/edit/<%= customer.id %>">
+            <button>Edit</button>
+          </a>
+          <form
+            action="/customers/admin/delete/<%= customer.id %>"
+            method="POST"
+          >
+            <button>Delete</button>
+          </form>
+        </td>
       </tr>
       <% }) %>
     </table>
     <a href="/customers/create">
-      <button>Tambah Data</button>
+      <button>tambah customer baru</button>
     </a>
   </body>
 </html>

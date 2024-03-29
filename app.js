@@ -1,6 +1,6 @@
 require("dotenv").config();
-const express = require("express");
 
+const express = require("express");
 const morgan = require("morgan");
 const flash = require("connect-flash");
 const session = require("express-session");
@@ -14,15 +14,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.set("views", __dirname + "/views");
-app.set("view engine", "jade");
+app.set("view engine", "ejs");
 
+app.use(
+  session({
+    secret: "apaaja",
+    saveUninitialized: true,
+    resave: true,
+  })
+);
+
+// biar bisa baca static file
+app.use(express.static(`${__dirname}/public`));
+
+app.use(flash());
 app.use(morgan("dev"));
 app.use(router);
 
-app.use(session({}));
-
-app.use(flash());
-
 app.listen(PORT, () => {
-  console.log(`Server listening on port : ${PORT}`);
+  console.log(`SERVER JALAN DI PORT : ${PORT}`);
 });

@@ -6,14 +6,14 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Edit Data</h1>
-    <form action="/customers/admin/edit" method="POST">
+    <h3>Edit Data Customer</h3>
+    <form action="/customers/admin/edit/<%= customer.id %>" method="POST">
       <label for="">Email</label>
       <input
         type="email"
         name="email"
         placeholder="masukkan email"
-        value="<% customer.email %>"
+        value="<%= customer.email %>"
       />
       <br />
       <button>Edit Data</button>

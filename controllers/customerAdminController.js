@@ -3,11 +3,13 @@ const { Customer } = require("../models");
 const customerPage = async (req, res) => {
   try {
     const customers = await Customer.findAll();
+
     res.render("customers/index.ejs", {
       customers,
+      message: req.flash("message", ""),
     });
   } catch (err) {
-    res.render("error.html", {
+    res.render("error.ejs", {
       message: err.message,
     });
   }
@@ -17,18 +19,7 @@ const createCustomerPage = async (req, res) => {
   try {
     res.render("customers/create.ejs");
   } catch (err) {
-    res.render("error.html", {
-      message: err.message,
-    });
-  }
-};
-
-const editCustomerPage = async (req, res) => {
-  try {
-    const editCustomerPage = await Customer.finByPk(req.params.id);
-    res.render("customers/edit.ejs");
-  } catch (err) {
-    res.render("error.html", {
+    res.render("error.ejs", {
       message: err.message,
     });
   }
@@ -37,9 +28,22 @@ const editCustomerPage = async (req, res) => {
 const createCustomer = async (req, res) => {
   try {
     await Customer.create(req.body);
+    req.flash("message", "Ditambah");
     res.redirect("/customers");
   } catch (err) {
-    res.render("error.htmll", {
+    console.log(err.message);
+  }
+};
+
+const editCustomerPage = async (req, res) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id);
+
+    res.render("customers/edit.ejs", {
+      customer,
+    });
+  } catch (err) {
+    res.render("error.ejs", {
       message: err.message,
     });
   }
@@ -47,28 +51,31 @@ const createCustomer = async (req, res) => {
 
 const editCustomer = async (req, res) => {
   try {
-    const customer = await Customer.update(req.params.id, req.body, {
+    await Customer.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
+    req.flash("message", "Diedit");
     res.redirect("/customers");
   } catch (err) {
-    res.render("error.htmll", {
+    res.render("error.ejs", {
       message: err.message,
     });
   }
 };
+
 const deleteCustomer = async (req, res) => {
   try {
-    const customer = await Customer.destroy(req.params.id, req.body, {
+    await Customer.destroy({
       where: {
         id: req.params.id,
       },
     });
+    req.flash("message", "Di hapus");
     res.redirect("/customers");
   } catch (err) {
-    res.render("error.htmll", {
+    res.render("error.ejs", {
       message: err.message,
     });
   }
