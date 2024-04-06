@@ -23,11 +23,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      city: {
-        type: Sequelize.TEXT,
-      },
+      city: Sequelize.STRING,
       photo: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

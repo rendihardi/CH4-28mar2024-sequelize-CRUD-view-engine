@@ -21,10 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "",
       },
       city: DataTypes.STRING,
-      photo: {
-        type: DataTypes.TEXT,
-        defaultValue: "user-default.jpg",
-      },
+      photo: DataTypes.STRING,
     },
     {
       sequelize,

@@ -1,5 +1,22 @@
 const { Customer } = require("../models");
 
+const getCustomer = async (req, res) => {
+  try {
+    const customers = await Customer.findAll();
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        totalData: customers.length,
+        customers,
+      },
+    });
+  } catch (err) {
+    res.render("error.ejs", {
+      message: err.message,
+    });
+  }
+};
 const createCustomer = async (req, res, next) => {
   // Destructuring object
   const { name, age, email, city } = req.body;
@@ -27,4 +44,5 @@ const createCustomer = async (req, res, next) => {
 
 module.exports = {
   createCustomer,
+  getCustomer,
 };

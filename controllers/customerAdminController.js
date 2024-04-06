@@ -25,13 +25,37 @@ const createCustomerPage = async (req, res) => {
   }
 };
 
+// const createCustomer = async (req, res) => {
+//   try {
+//     await Customer.create(req.body);
+//     req.flash("message", "Ditambah");
+//     res.redirect("/customers");
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// };
+
 const createCustomer = async (req, res) => {
   try {
-    await Customer.create(req.body);
-    req.flash("message", "Ditambah");
+    let photo = null;
+    if (req.file) {
+      photo = req.file.filename;
+    }
+
+    const customerData = { ...req.body, photo };
+    await Customer.create(customerData);
+    res.status(200).json({
+      status: "success",
+      data: {
+        newCustomer,
+      },
+    });
+    req.flash("message", "");
     res.redirect("/customers");
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
+    req.flash("error", "Gagal menambahkan pelanggan");
+    res.redirect("/customers");
   }
 };
 
